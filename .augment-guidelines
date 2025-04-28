@@ -1,0 +1,3 @@
+1. Please use poetry, and not pip or pipenv.
+2. Prefer using break/continue early on, instead of writing nested code.
+3. Always use Qdrant's find tool to search for code snippets related to django-semantic-search.

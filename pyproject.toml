@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "webinar-openai-agents-mcp"
+version = "0.1.0"
+description = "Using MCP to Orchestrate AI Agents with OpenAI SDK, AugmentCode, and Qdrant"
+authors = ["Kacper Łukawski <kacper.lukawski@qdrant.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+package-mode = false
+packages = [{ include = "main.py" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai-agents = "^0.0.13"
+python-dotenv = "^1.1.0"
+beautifulsoup4 = "^4.13.4"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.6.0"
+ruff = "^0.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint.isort]
+known-first-party = ["models", "tools", "helper"]
