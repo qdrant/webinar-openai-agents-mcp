@@ -2,6 +2,10 @@
 
 This repository contains the code for the webinar demonstrating how to use Model Context Protocol (MCP) to orchestrate AI Agents with OpenAI SDK, Augment Code, and Qdrant.
 
+> [!NOTE]
+> If you would like to see the Django application created during the webinar, please check the
+> [simple-django-app](src/simple-django-app) directory.
+
 ## Overview
 
 The project showcases how to:
