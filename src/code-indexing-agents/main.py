@@ -53,6 +53,7 @@ web_search_agent = Agent(
         "4. A technical documentation generated from the source code\n"
         "Never return PyPI project page or GitHub repository. If none of this is available, "
         "then return an empty list. Always use the web search tool provided. "
+        "Please do not include API reference materials, but rather the examples. "
         "Return up to 4 results."
     ),
     tools=[
