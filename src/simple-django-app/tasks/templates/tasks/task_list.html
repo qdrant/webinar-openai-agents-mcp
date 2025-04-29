@@ -1,0 +1,59 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>My Tasks</h2>
+            </div>
+            <div class="card-body">
+                {% if tasks %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr class="{% if task.status == 'completed' %}task-completed{% elif task.status == 'in_progress' %}task-in-progress{% endif %}">
+                                <td><a href="{% url 'task-detail' task.pk %}">{{ task.title }}</a></td>
+                                <td>
+                                    <span class="badge {% if task.status == 'pending' %}bg-warning{% elif task.status == 'in_progress' %}bg-primary{% else %}bg-success{% endif %}">
+                                        {{ task.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>{{ task.created_at|date:"M d, Y" }}</td>
+                                <td>{% if task.due_date %}{{ task.due_date|date:"M d, Y" }}{% else %}No due date{% endif %}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                        <a href="{% url 'task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                                        {% if task.status != 'completed' %}
+                                        <a href="{% url 'task-complete' task.pk %}" class="btn btn-sm btn-outline-success">Complete</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    No tasks yet. <a href="{% url 'task-create' %}" class="alert-link">Create your first task</a>.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Task Details</h2>
+                <div>
+                    <a href="{% url 'task-list' %}" class="btn btn-outline-secondary">Back to List</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title {% if task.status == 'completed' %}task-completed{% elif task.status == 'in_progress' %}task-in-progress{% endif %}">
+                    {{ task.title }}
+                </h3>
+
+                <div class="mb-3">
+                    <span class="badge {% if task.status == 'pending' %}bg-warning{% elif task.status == 'in_progress' %}bg-primary{% else %}bg-success{% endif %}">
+                        {{ task.get_status_display }}
+                    </span>
+                </div>
+
+                <div class="card-text mb-4">
+                    {% if task.description %}
+                    <h5>Description:</h5>
+                    <p>{{ task.description|linebreaks }}</p>
+                    {% else %}
+                    <p class="text-muted">No description provided.</p>
+                    {% endif %}
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Created:</strong> {{ task.created_at|date:"F d, Y H:i" }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Last Updated:</strong> {{ task.updated_at|date:"F d, Y H:i" }}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <strong>Due Date:</strong>
+                    {% if task.due_date %}
+                    {{ task.due_date|date:"F d, Y H:i" }}
+                    {% else %}
+                    <span class="text-muted">No due date set</span>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="{% url 'task-update' task.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Delete</a>
+                    {% if task.status != 'completed' %}
+                    <a href="{% url 'task-complete' task.pk %}" class="btn btn-success">Mark as Completed</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
